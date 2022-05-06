@@ -7,6 +7,7 @@
 
 @2
  D=A
+ @name
  @output
  @3    //asd
  D=D+A

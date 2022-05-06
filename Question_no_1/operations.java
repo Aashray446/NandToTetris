@@ -96,7 +96,7 @@ public class operations {
                 //Extracting the label name 
                 label_name =  line.substring(1, line.length()-1);
                 record_table.put(label_name, current_line);
-
+                current_line = current_line-1;
                 }
                 current_line += 1;
 
@@ -195,6 +195,29 @@ void convert_data_into_binary(String input_file_name, String output_file_name) t
 
     
 
+
+}
+
+void add_unkown_label(String input_file_name) throws IOException {
+    File new_file = new File(input_file_name);
+    FileReader fr = new FileReader(new_file);
+    BufferedReader br = new BufferedReader(fr);
+
+    String line;
+    int var_count = 16;
+    while((line = br.readLine()) != null) {
+        if(line.charAt(0) == '@') {
+
+            String a_var = line.split("@")[1];
+            if(!record_table.containsKey(a_var) && !a_var.matches("[0-9]") ) {
+            
+                record_table.put(a_var, var_count);
+                var_count += 1;
+            }
+        }
+    }
+    br.close();
+    fr.close();
 
 }
 
