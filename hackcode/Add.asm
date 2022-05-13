@@ -6,14 +6,8 @@
 // Computes R0 = 2 + 3  (R0 refers to RAM[0])
 
 @2
- D=A
- @name
- @output
- @3    //asd
- D=D+A
-(output)
- @0
-    M=D
-
-
-
+D=A
+@3
+D=D+A
+@0
+M=D
