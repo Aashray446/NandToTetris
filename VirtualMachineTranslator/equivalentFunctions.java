@@ -1,6 +1,6 @@
 public class equivalentFunctions {
 
-    public String lcl(String arr[]){
+    public String ch_local(String arr[]){
 
         StringBuilder sb = new StringBuilder();
 
@@ -13,7 +13,7 @@ public class equivalentFunctions {
         //SP++
         //*addr=*SP  
 
-        
+
         sb.append("@"+arr[2]+"\n");
         sb.append("D=A");
 
