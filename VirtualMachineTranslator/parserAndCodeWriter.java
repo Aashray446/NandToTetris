@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -31,23 +32,42 @@ public class parserAndCodeWriter {
     }
 
 
-    public void writeCode(ArrayList<String[]> fileData){
+    public void writeCode(ArrayList<String[]> fileData, String fileName) throws IOException{
+
+        equivalentFunctions operation = new equivalentFunctions();
+        FileWriter fw = new FileWriter(fileName + ".asm");
 
         for (String[] line : fileData) {
             
             switch(line[1]) {
 
                 case "static":
-                    //Todo Something
+                    // Changing Static
+                    fw.append(  operation.ch_static(line, fileName) );
+
                     break;
                 case "pointer":
-                    //Todo Something
+                    //Changing Pointer
+
+                    fw.append(  operation.ch_pointer(line) );
+                    
                     break;
                 case "constant":
-                    //Todo Something
+                    //Getting constant
+
+                    fw.append(  operation.ch_constant(line) );
+
                     break;
+
                 case "local":
-                    //Todo Something
+                case "argument":
+                case "temp":
+                case "this":
+                case "that":
+                    //Changing which have common ways 
+
+                    fw.append(  operation.ch_local(line) );
+
                     break;
                 default:
                     System.out.println("Unexpected Commands");
@@ -55,6 +75,9 @@ public class parserAndCodeWriter {
             }
 
         }
+
+        //File Writer Closing
+        fw.close();
 
     }
 
