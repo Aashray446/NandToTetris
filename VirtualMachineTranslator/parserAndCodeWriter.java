@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class parserAndCodeWriter {
     
-    public ArrayList<String[]> getNextLine(String fileName) throws IOException {
+    public ArrayList<String[]> getFileData(String fileName) throws IOException {
 
         ArrayList<String[]> fileData = new ArrayList<String[]>();
         String[] arr;
@@ -28,6 +28,34 @@ public class parserAndCodeWriter {
         br.close();
         fr.close();
         return fileData;
+    }
+
+
+    public void writeCode(ArrayList<String[]> fileData){
+
+        for (String[] line : fileData) {
+            
+            switch(line[1]) {
+
+                case "static":
+                    //Todo Something
+                    break;
+                case "pointer":
+                    //Todo Something
+                    break;
+                case "constant":
+                    //Todo Something
+                    break;
+                case "local":
+                    //Todo Something
+                    break;
+                default:
+                    System.out.println("Unexpected Commands");
+                    System.exit(0);
+            }
+
+        }
+
     }
 
 }
