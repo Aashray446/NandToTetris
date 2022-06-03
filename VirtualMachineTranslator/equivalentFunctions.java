@@ -1,5 +1,24 @@
 public class equivalentFunctions {
 
+    public String ch_add_sub(String arr[]){
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("@SP\n");
+        sb.append("AM=M-1\n");
+        sb.append("D=M\n");
+        sb.append("@SP\n");
+        sb.append("AM=M-1\n");
+        if(arr[0].equals("add")){
+            sb.append("M=M+D\n");
+        }
+        else{
+            sb.append("M=M-D\n");
+        }
+        sb.append("@SP\n");
+        sb.append("M=M+1\n");
+        return sb.toString();
+    }
+
     public String ch_local(String arr[]){
 
         StringBuilder sb = new StringBuilder();
@@ -15,26 +34,29 @@ public class equivalentFunctions {
 
 
         sb.append("@"+arr[2]+"\n");
-        sb.append("D=A");
+        sb.append("D=A\n");
 
-        if(arr[1]=="local"){
+        if(arr[1].equals("local")){
             sb.append("@LCL\n"); 
-        }
-        else if(arr[1]=="argument"){
-            sb.append("@ARG\n");
-        }
-        else if(arr[1]=="this"){
-            sb.append("@THIS\n");
-        }
-        else if(arr[1]=="that"){
-            sb.append("@THAT\n");
-        }
-        else if(arr[1]=="temp"){
-            sb.append("@5");
-        }
-        if(arr[0]=="push"){
-
             sb.append("D=D+M\n");
+        }
+        else if(arr[1].equals("argument")){
+            sb.append("@ARG\n");
+            sb.append("D=D+M\n");
+        }
+        else if(arr[1].equals("this")){
+            sb.append("@THIS\n");
+            sb.append("D=D+M\n");
+        }
+        else if(arr[1].equals("that")){
+            sb.append("@THAT\n");
+            sb.append("D=D+M\n");
+        }
+        else if(arr[1].equals("temp")){
+            sb.append("@5\n");
+            sb.append("D=D+A\n");
+        }
+        if(arr[0].equals("push")){
             sb.append("A=D\n");
             sb.append("D=M\n");
             sb.append("@SP\n");
@@ -45,7 +67,7 @@ public class equivalentFunctions {
 
         }
 
-        else if(arr[0]=="push"){
+        else if(arr[0].equals("pop")){
             sb.append("@R13\n");
             sb.append("M=D\n");
             sb.append("@SP\n");
@@ -79,33 +101,60 @@ public class equivalentFunctions {
 
     public String ch_pointer(String[] parsed){
         StringBuilder sb = new StringBuilder();
-        if(parsed[2]=="0"){
+        if(parsed[2].equals("0")){
             //sp--
             //*THIS= *sp
-            sb.append("@SP"+"\n");
-            sb.append("AM=M-1"+"\n");
-            sb.append("D+M"+"\n");
-            sb.append("@THIS"+"\n");
-            sb.append("M=D"+"\n");
+            if(parsed[0].equals("pop")){
+                sb.append("@SP"+"\n");
+                sb.append("AM=M-1"+"\n");
+                sb.append("D=M"+"\n");
+                sb.append("@THIS"+"\n");
+                sb.append("M=D"+"\n");
+            }
+            if(parsed[0].equals("push")){
+                sb.append("@THIS\n");
+                sb.append("D=M\n");
+                sb.append("@SP\n");
+                sb.append("A=M\n");
+                sb.append("M=D\n");
+                sb.append("@SP\n");
+                sb.append("M=M+1\n");
+
+            }
+            
 
         }
-        if(parsed[2]=="1"){
+        if(parsed[2].equals("1")){
             //sp--
             //*THAT= *sp
-            sb.append("@SP"+"\n");
-            sb.append("AM=M-1"+"\n");
-            sb.append("D+M"+"\n");
-            sb.append("@THAT"+"\n");
-            sb.append("M=D"+"\n");
+            if(parsed[0].equals("pop")){
+                sb.append("@SP"+"\n");
+                sb.append("AM=M-1"+"\n");
+                sb.append("D=M"+"\n");
+                sb.append("@THAT"+"\n");
+                sb.append("M=D"+"\n");
+            }
+
+            if(parsed[0].equals("push")){
+                sb.append("@THAT\n");
+                sb.append("D=M\n");
+                sb.append("@SP\n");
+                sb.append("A=M\n");
+                sb.append("M=D\n");
+                sb.append("@SP\n");
+                sb.append("M=M+1\n");
+
+            }
 
         }
         return sb.toString();
     }
 
-    public String ch_static(String[] parsed,String filename){
+    public String ch_static(String[] parsed,String fileName){
         StringBuilder sb = new StringBuilder();
-        if(parsed[0]=="push"){
-            sb.append("@"+filename+"."+parsed[2]+"\n");
+        String[] file = fileName.split("\\.(?=[^\\.]+$)");
+        if(parsed[0].equals("push")){
+            sb.append("@"+file[0]+"."+parsed[2]+"\n");
             sb.append("D=M\n");
             sb.append("@SP\n");
             sb.append("A=M\n");
@@ -113,12 +162,12 @@ public class equivalentFunctions {
             sb.append("@SP\n");
             sb.append("M=M+1\n");
         }
-        if(parsed[0]=="pop"){
+        if(parsed[0].equals("pop")){
             sb.append("@SP\n");
             sb.append("AM=M-1\n");
             sb.append("D=M\n");
-            sb.append("@"+filename+"."+parsed[2]+"\n");
-            sb.append("M=D");
+            sb.append("@"+file[0]+"."+parsed[2]+"\n");
+            sb.append("M=D\n");
         }
         return sb.toString();
     }

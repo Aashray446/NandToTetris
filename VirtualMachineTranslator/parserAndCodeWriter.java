@@ -20,10 +20,12 @@ public class parserAndCodeWriter {
 
         String line;
         while(   (line = br.readLine()) != null )  {
-
+            if(!(line.isEmpty())){
+            if(line.charAt(0)!='/'){
             arr = line.split(" ");
             fileData.add(arr);
-
+            }
+        }
         }
 
         br.close();
@@ -35,10 +37,15 @@ public class parserAndCodeWriter {
     public void writeCode(ArrayList<String[]> fileData, String fileName) throws IOException{
 
         equivalentFunctions operation = new equivalentFunctions();
-        FileWriter fw = new FileWriter(fileName + ".asm");
+        String[] file = fileName.split("\\.(?=[^\\.]+$)");
+        FileWriter fw = new FileWriter(file[0] + ".asm");
 
         for (String[] line : fileData) {
+        if(line[0].equals("add")||line[0].equals("sub")){
+            fw.append(operation.ch_add_sub(line));
+        }
             
+        if(line[0].equals("push")||line[0].equals("pop")){
             switch(line[1]) {
 
                 case "static":
@@ -75,6 +82,7 @@ public class parserAndCodeWriter {
             }
 
         }
+    }
 
         //File Writer Closing
         fw.close();
