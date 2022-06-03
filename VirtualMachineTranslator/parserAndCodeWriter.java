@@ -21,9 +21,18 @@ public class parserAndCodeWriter {
         String line;
         while(   (line = br.readLine()) != null )  {
 
+            // Handling Empty lines
+            if(line.isEmpty()) {
+                continue;
+            }
+            // Handling The Comments
+            if(line.charAt(0)=='/'){
+                continue;
+            }
+               
             arr = line.split(" ");
             fileData.add(arr);
-
+            
         }
 
         br.close();
@@ -35,7 +44,10 @@ public class parserAndCodeWriter {
     public void writeCode(ArrayList<String[]> fileData, String fileName) throws IOException{
 
         equivalentFunctions operation = new equivalentFunctions();
-        FileWriter fw = new FileWriter(fileName + ".asm");
+
+        String[] file = fileName.split("\\.(?=[^\\.]+$)");
+        
+        FileWriter fw = new FileWriter(file[0] + ".asm");
 
 
         for (String[] line : fileData) {
@@ -79,9 +91,9 @@ public class parserAndCodeWriter {
                 default:
                     System.out.println("Unexpected Commands");
                     System.exit(0);
-            }
 
         }
+    }
 
         //File Writer Closing
         fw.close();
