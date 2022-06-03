@@ -35,7 +35,7 @@ public class equivalentFunctions {
 
         }
 
-        else if(arr[0].equals("push")){
+        else if(arr[0].equals("pop")){
             sb.append("@R13\n");
             sb.append("M=D\n");
             sb.append("@SP\n");
