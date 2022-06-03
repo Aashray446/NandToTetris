@@ -6,7 +6,7 @@ public class main {
         
         parserAndCodeWriter translator = new parserAndCodeWriter();
 
-        String FileName = "test.txt";
+        String FileName = "StaticTest.vm";
 
         translator.writeCode(translator.getFileData(FileName), FileName);
 
