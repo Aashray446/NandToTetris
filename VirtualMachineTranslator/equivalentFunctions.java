@@ -129,7 +129,7 @@ public class equivalentFunctions {
             sb.append("M=M-D\n");
         }
         sb.append("@SP\n");
-        sb.append("M=M-1\n");
+        sb.append("M=M+1\n");
         return sb.toString();
     }
 
