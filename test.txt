@@ -1,2 +1,0 @@
-push constant 10
-push local 4
