@@ -37,8 +37,15 @@ public class parserAndCodeWriter {
         equivalentFunctions operation = new equivalentFunctions();
         FileWriter fw = new FileWriter(fileName + ".asm");
 
+
         for (String[] line : fileData) {
             
+              // Solving Issue #4 handling Arithemetic operations 
+              if( line.length == 1 ) {
+                  fw.append( operation.ch_add_sub(line) );
+                continue;
+              }
+
             switch(line[1]) {
 
                 case "static":
